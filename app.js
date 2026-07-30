@@ -13,7 +13,6 @@ function getHumanChoice(userChoice) {
   return userChoice.toLowerCase();
 }
 
-console.log(getHumanChoice('IGLO'));
-console.log(getHumanChoice('rock'));
-console.log(getHumanChoice('PAPER'));
-console.log(getHumanChoice('scissors'));
+// Global player scores
+let humanScore = 0;
+let computerScore = 0;
