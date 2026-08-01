@@ -5,55 +5,60 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-  let userChoice = prompt('Rock, Paper or Scissor?');
+  let userChoice = prompt('Pick rock, paper, or scissors');
 
   let choices = ['rock', 'paper', 'scissors'];
-  if (!choices.includes(userChoice.toLowerCase())) {
-    return 'Pick either rock, paper, or scissors';
+  while (userChoice === null || !choices.includes(userChoice.toLowerCase())) {
+    userChoice = prompt(
+      'Invalid choice. Please enter rock, paper, or scissors:',
+    );
   }
 
   return userChoice.toLowerCase();
 }
 
-function playRound(humanChoice, computerChoice) {
-  if (humanChoice.toLowerCase() === computerChoice) {
-    return `It's a tie!`;
+function playGame() {
+  let totalRounds = 0;
+  let humanScore = 0;
+  let computerScore = 0;
+
+  function playRound(humanChoice, computerChoice) {
+    if (humanChoice.toLowerCase() === computerChoice) {
+      return `It's a tie!`;
+    }
+
+    if (humanChoice.toLowerCase() === 'rock' && computerChoice === 'scissors') {
+      humanScore++;
+      return `Player wins! ${humanChoice} beats ${computerChoice}`;
+    } else if (
+      humanChoice.toLowerCase() === 'paper' &&
+      computerChoice === 'rock'
+    ) {
+      humanScore++;
+      return `Player wins! ${humanChoice} beats ${computerChoice}`;
+    } else if (
+      humanChoice.toLowerCase() === 'scissors' &&
+      computerChoice === 'paper'
+    ) {
+      humanScore++;
+      return `Player wins! ${humanChoice} beats ${computerChoice}`;
+    } else {
+      computerScore++;
+      return `You lose! ${computerChoice} beats ${humanChoice}`;
+    }
+  }
+  while (totalRounds < 5) {
+    const humanSelection = getHumanChoice();
+    const computerSelection = getComputerChoice();
+    console.log(playRound(humanSelection, computerSelection));
+    totalRounds++;
   }
 
-  if (humanChoice.toLowerCase() === 'rock' && computerChoice === 'scissors') {
-    addHumanPoint();
-    return `Player wins! ${humanChoice} beats ${computerChoice}`;
-  } else if (
-    humanChoice.toLowerCase() === 'paper' &&
-    computerChoice === 'rock'
-  ) {
-    addHumanPoint();
-    return `Player wins! ${humanChoice} beats ${computerChoice}`;
-  } else if (
-    humanChoice.toLowerCase() === 'scissors' &&
-    computerChoice === 'paper'
-  ) {
-    addHumanPoint();
-    return `Player wins! ${humanChoice} beats ${computerChoice}`;
+  if (humanScore > computerScore) {
+    return 'Human wins the game!';
   } else {
-    addComputerPoint();
-    return `You lose! ${computerChoice} beats ${humanChoice}`;
+    return `Computer wins the game`;
   }
 }
 
-function addHumanPoint() {
-  return humanScore++;
-}
-
-function addComputerPoint() {
-  return computerScore++;
-}
-
-// Global player scores
-let humanScore = 0;
-let computerScore = 0;
-
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-
-console.log(playRound(humanSelection, computerSelection));
+console.log(playGame());
