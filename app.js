@@ -4,7 +4,9 @@ function getComputerChoice() {
   return choices[choice];
 }
 
-function getHumanChoice(userChoice) {
+function getHumanChoice() {
+  let userChoice = prompt('Rock, Paper or Scissor?');
+
   let choices = ['rock', 'paper', 'scissors'];
   if (!choices.includes(userChoice.toLowerCase())) {
     return 'Pick either rock, paper, or scissors';
@@ -19,32 +21,39 @@ function playRound(humanChoice, computerChoice) {
   }
 
   if (humanChoice.toLowerCase() === 'rock' && computerChoice === 'scissors') {
-    humanScore++;
+    addHumanPoint();
     return `Player wins! ${humanChoice} beats ${computerChoice}`;
   } else if (
     humanChoice.toLowerCase() === 'paper' &&
     computerChoice === 'rock'
   ) {
-    humanScore++;
+    addHumanPoint();
     return `Player wins! ${humanChoice} beats ${computerChoice}`;
   } else if (
     humanChoice.toLowerCase() === 'scissors' &&
     computerChoice === 'paper'
   ) {
-    humanScore++;
+    addHumanPoint();
     return `Player wins! ${humanChoice} beats ${computerChoice}`;
   } else {
-    computerScore++;
+    addComputerPoint();
     return `You lose! ${computerChoice} beats ${humanChoice}`;
   }
+}
+
+function addHumanPoint() {
+  return humanScore++;
+}
+
+function addComputerPoint() {
+  return computerScore++;
 }
 
 // Global player scores
 let humanScore = 0;
 let computerScore = 0;
 
-const humanSelection = getHumanChoice('scissors');
+const humanSelection = getHumanChoice();
 const computerSelection = getComputerChoice();
 
-playRound(humanSelection, computerSelection);
-
+console.log(playRound(humanSelection, computerSelection));
